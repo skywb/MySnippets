@@ -1,4 +1,4 @@
-extends c
+#extends c
 
 global !p
 
@@ -170,12 +170,113 @@ TEST_F(${1:test_fixture},${2:test_name})
 }
 endsnippet
 
-snippet gset "Get/Set method" 
-void SetData(int data) {
-	data_ = data;
+snippet main "main function" b
+int main(int argc, const char *argv[])
+{
+	${0}
+	return 0;
 }
-int GetData() {
-	return data_;
+endsnippet
+snippet mainn
+int main()
+{
+	${0}
+	return 0;
 }
 endsnippet
 
+snippet for
+for (${1:int i=0}; ${2:i < len}; ${3:++i}) {
+	${4}
+}
+endsnippet
+
+snippet fori
+for (int ${2:i} = 0; $2 < ${1:count}; ${3:++}$2) {
+	${4}
+}
+endsnippet
+
+# for (custom)
+snippet forr
+for (int ${1:i} = ${2:0}; ${3:$1 < 10}; ${4:++}$1) {
+	${5}
+}
+endsnippet
+
+snippet wh "while"
+while (${1:/* condition */}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet do "do while"
+do {
+	${0:${VISUAL}}
+} while (${1:/* condition */});
+endsnippet
+
+
+# if
+snippet if
+if (${1:true}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet ife
+if (${1:true}) {
+	${2:${VISUAL}}
+} else {
+	${0}
+}
+endsnippet
+# else
+
+snippet el
+else {
+	${0:${VISUAL}}
+}
+endsnippet
+# else if
+snippet elif
+else if (${1:true}) {
+	${0:${VISUAL}}
+}
+endsnippet
+# ifi
+snippet ifi
+if (${1:true}) ${0};
+endsnippet
+
+# switch
+snippet switch
+switch (${1:/* variable */}) {
+	case ${2:/* variable case */}:
+		${3}
+		${4:break;}${5}
+	default:
+		${6}
+}
+endsnippet
+
+# case
+snippet case
+case ${1:/* variable case */}:
+	${2}
+	${3:break;}
+endsnippet
+
+## Functions
+snippet fun "funtion"
+${1:void} ${2:function_name}(${3})
+{
+	${4}
+}
+endsnippet
+
+snippet todo "TODO list"
+/*! TODO: ${1:Todo description here}
+ *  \todo $1
+ */
+endsnippet
