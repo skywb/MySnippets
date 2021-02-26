@@ -2,8 +2,7 @@
 # main
 
 snippet main "main"
-	int main(int argc, const char *argv[])
-	{
+	int main(int argc, const char *argv[]) {
 		${0}
 		return 0;
 	}
@@ -11,8 +10,7 @@ endsnippet
 
 # main(void)
 snippet mainn
-	int main()
-	{
+	int main() {
 		${0}
 		return 0;
 	}
@@ -148,15 +146,13 @@ endsnippet
 ## Functions
 # function definition
 snippet fun
-${1:void} ${2:function_name}(${3})
-{
+${1:void} ${2:function_name}(${3}) {
 	${4}
 }
 endsnippet
 # function definition with zero parameters
 snippet fun0
-${1:void} ${2:function_name}()
-{
+${1:void} ${2:function_name}() {
 	${3}
 }
 endsnippet

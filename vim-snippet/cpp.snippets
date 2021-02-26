@@ -67,8 +67,7 @@ ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:
 endsnippet
 
 snippet cl "class .. (class)"
-class ${1:`!p snip.rv = snip.basename or "name"`}
-{
+class ${1:`!p snip.rv = snip.basename or "name"`} {
 public:
 	${1/(\w+).*/$1/} (${2:arguments});
 	virtual ~${1/(\w+).*/$1/} ();
@@ -79,16 +78,14 @@ private:
 endsnippet
 
 snippet ns "namespace .. (namespace)"
-namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
-{
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`} {
 	${VISUAL}$0
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 endsnippet
 
 snippet readfile "read file (readF)"
 std::vector<char> v;
-if (FILE *fp = fopen(${1:"filename"}, "r"))
-{
+if (FILE *fp = fopen(${1:"filename"}, "r")) {
 	char buf[1024];
 	while(size_t len = fread(buf, 1, sizeof(buf), fp))
 		v.insert(v.end(), buf, buf + len);
@@ -150,36 +147,31 @@ try {
 endsnippet
 
 snippet af "auto function"
-auto ${1:name}(${2}) -> ${3:void}
-{
+auto ${1:name}(${2}) -> ${3:void} {
 	${0}
 };
 endsnippet
 
 snippet gtest "TEST(test_case_name, test_name)"
-TEST(${1:test_case_name}, ${2:test_name})
-{
+TEST(${1:test_case_name}, ${2:test_name}) {
 	${0}
 }
 endsnippet
 
 snippet gtestf "TEST_F(test_case_name, test_name)"
-TEST_F(${1:test_fixture},${2:test_name})
-{
+TEST_F(${1:test_fixture},${2:test_name}) {
 	${0}
 }
 endsnippet
 
 snippet main "main function" b
-int main(int argc, const char *argv[])
-{
+int main(int argc, const char *argv[]) {
 	${0}
 	return 0;
 }
 endsnippet
 snippet mainn
-int main()
-{
+int main() {
 	${0}
 	return 0;
 }
@@ -269,8 +261,7 @@ endsnippet
 
 ## Functions
 snippet fun "funtion"
-${1:void} ${2:function_name}(${3})
-{
+${1:void} ${2:function_name}(${3}) {
 	${4}
 }
 endsnippet
