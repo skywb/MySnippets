@@ -1,4 +1,12 @@
-#extends c
+priority -50
+
+extends c
+
+# We want to overwrite everything in parent ft.
+priority -49
+###########################################################################
+#			    Global functions 						  #
+###########################################################################
 
 global !p
 
@@ -22,44 +30,17 @@ endglobal
 ###########################################################################
 #                            TextMate Snippets                            #
 ###########################################################################
-
-snippet incc "Description" b
-#include <${1:iostream}>
-endsnippet
-snippet inc "current headfile" b
-#include "${1:iostream}"
-endsnippet
-snippet binc "boost headfile" b
-#include <boost/${1:shared_ptr}.hpp>
+snippet main
+int main()
+{
+	${0}
+}
 endsnippet
 
-snippet msp "std::shared_ptr" b
-std::shared_ptr<${1:T}> ${2} = std::make_shared<$1>(${3});
-endsnippet
-
-snippet mup "std::unique_ptr" b
-std::unique_ptr<${1:T}> ${2} = std::make_unique<$1>(${3});
-endsnippet
-
-snippet cout "std::cout"
-std::cout << ${1} << std::endl;
-endsnippet
-snippet cin "std::cin"
-std::cin >> ${1};
-endsnippet
-
-# cast
-snippet sca "static cast"
-static_cast<${1:unsigned}>(${2:expr})${3}
-endsnippet
-snippet dca "dynamic cast"
-dynamic_cast<${1:unsigned}>(${2:expr})${3}
-endsnippet
-snippet rca "reinterpret"
-reinterpret_cast<${1:unsigned}>(${2:expr})${3}
-endsnippet
-snippet cca "const cast"
-const_cast<${1:unsigned}>(${2:expr})${3}
+snippet forc "general for loop (for)"
+for (${6:auto} ${1:i} = ${2:v.begin()}; `!p import re; snip.rv = re.split("[^\w]",t[1])[-1]` ${4:!=} ${3:`!p m = re.search(r'^(?:(.*)(\.|->)begin\(\)|((?:std|boost)::)?begin\((.*)\))$', t[2]); snip.rv = (((m.group(3) if m.group(3) else "") + "end(" + m.group(4) + ")") if m.group(4) else (m.group(1) + m.group(2) + "end()")) if m else ""`}; ${5:++`!p snip.rv = t[1].split(" ")[-1]`}) {
+	${VISUAL}$0
+}
 endsnippet
 
 snippet beginend "$1.begin(), $1.end() (beginend)"
@@ -67,7 +48,8 @@ ${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:
 endsnippet
 
 snippet cl "class .. (class)"
-class ${1:`!p snip.rv = snip.basename or "name"`} {
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
 public:
 	${1/(\w+).*/$1/} (${2:arguments});
 	virtual ~${1/(\w+).*/$1/} ();
@@ -78,14 +60,16 @@ private:
 endsnippet
 
 snippet ns "namespace .. (namespace)"
-namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`} {
+namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
+{
 	${VISUAL}$0
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 endsnippet
 
 snippet readfile "read file (readF)"
 std::vector<char> v;
-if (FILE *fp = fopen(${1:"filename"}, "r")) {
+if (FILE *fp = fopen(${1:"filename"}, "r"))
+{
 	char buf[1024];
 	while(size_t len = fread(buf, 1, sizeof(buf), fp))
 		v.insert(v.end(), buf, buf + len);
@@ -105,169 +89,98 @@ snippet tp "template <typename ..> (template)"
 template <typename ${1:_InputIter}>
 endsnippet
 
+snippet cla "An entire .h generator" b
+#ifndef ${2:`!v substitute(vim_snippets#Filename('$1_H','ClassName'),'.*','\U&\E','')`}
+#define $2
 
-# foreach
-snippet fore "foreach"
-for (${1:auto} ${2:i} : ${3:container}) {
-	${4}
-}
-endsnippet
+class ${1:`!v substitute(substitute(vim_snippets#Filename('$1','ClassName'),'^.','\u&',''), '_\(\w\)', '\u\1', 'g')`}
+{
+private:
+	$3
 
-snippet iter "iterator"
-for (${1:std::vector}<${2:type}>::${3:const_iterator} ${4:i} = ${5:container}.begin(); $4 != $5.end(); ++$4) {
-	${6}
-}
-endsnippet
-
-snippet itera "auto iterator"
-for (auto ${1:i} = ${2:container}.begin(); $1 != $2.end(); ++$1) {
-	${3:std::cout << *$1 << std::endl;}
-}
-endsnippet
-
-# Lambdas
-# lamda (one line)
-snippet ld "lambda one line"
-[${1}](${2}){${3}};
-endsnippet
-
-snippet lld "multy line lambda"
-[${1}](${2}){
-	${3}
+public:
+	$1();
+	virtual ~$1();
 };
+
+#endif /* $2 */
 endsnippet
 
-# snippets exception
-snippet try "try catch block"
-try {
 
-}catch(${1}) {
-
+snippet fnc "Basic c++ doxygen function template" b
+/**
+* @brief: ${4:brief}
+*
+* @param: `!p write_docstring_args(t[3],snip)`
+*
+* @return: `!p snip.rv = t[1]`
+*/
+${1:ReturnType} ${2:FunctionName}(${3:param})
+{
+	${0:FunctionBody}
 }
 endsnippet
 
-snippet af "auto function"
-auto ${1:name}(${2}) -> ${3:void} {
-	${0}
+snippet boost_test "Boost test module" b
+#define BOOST_TEST_MODULE ${1:TestModuleName}
+#include <boost/test/included/unit_test.hpp>
+
+BOOST_AUTO_TEST_CASE(${2:TestCaseName})
+{
+	${0:TestDefinition}
+}
+
+endsnippet
+
+snippet boost_suite "Boost test suite module" b
+#define BOOST_TEST_MODULE ${1:TestModuleName}
+#include <boost/test/included/unit_test.hpp>
+
+BOOST_AUTO_TEST_SUITE(${2:SuiteName})
+
+BOOST_AUTO_TEST_CASE(${3:TestCaseName})
+{
+	${0:TestDefinition}
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+endsnippet
+snippet boost_test_fixture "Boost test module with fixture" b
+#define BOOST_TEST_MODULE ${1:TestModuleName}
+#include <boost/test/included/unit_test.hpp>
+
+struct ${2:FixtureName} {
+	$2() {}
+	virtual ~$2() {}
+	/* define members here */
 };
-endsnippet
 
-snippet gtest "TEST(test_case_name, test_name)"
-TEST(${1:test_case_name}, ${2:test_name}) {
-	${0}
+BOOST_FIXTURE_TEST_CASE(${3:SuiteName}, $2)
+{
+	${0:TestDefinition}
 }
+
 endsnippet
 
-snippet gtestf "TEST_F(test_case_name, test_name)"
-TEST_F(${1:test_fixture},${2:test_name}) {
-	${0}
+snippet boost_suite_fixture "Boost test suite with fixture" b
+#define BOOST_TEST_MODULE ${1:TestModuleName}
+#include <boost/test/included/unit_test.hpp>
+
+struct ${2:FixtureName} {
+	$2() {}
+	virtual ~$2() {}
+	/* define members here */
+};
+
+BOOST_FIXTURE_TEST_SUITE(${3:SuiteName}, $2)
+
+BOOST_AUTO_TEST_CASE(${4:TestCaseName})
+{
+	${0:TestDefinition}
 }
-endsnippet
 
-snippet main "main function" b
-int main(int argc, const char *argv[]) {
-	${0}
-	return 0;
-}
-endsnippet
-snippet mainn
-int main() {
-	${0}
-	return 0;
-}
-endsnippet
+BOOST_AUTO_TEST_SUITE_END()
 
-snippet for
-for (${1:int i=0}; ${2:i < len}; ${3:++i}) {
-	${4}
-}
 endsnippet
-
-snippet fori
-for (int ${2:i} = 0; $2 < ${1:count}; ${3:++}$2) {
-	${4}
-}
-endsnippet
-
-# for (custom)
-snippet forr
-for (int ${1:i} = ${2:0}; ${3:$1 < 10}; ${4:++}$1) {
-	${5}
-}
-endsnippet
-
-snippet wh "while"
-while (${1:/* condition */}) {
-	${0:${VISUAL}}
-}
-endsnippet
-
-snippet do "do while"
-do {
-	${0:${VISUAL}}
-} while (${1:/* condition */});
-endsnippet
-
-
-# if
-snippet if
-if (${1:true}) {
-	${0:${VISUAL}}
-}
-endsnippet
-
-snippet ife
-if (${1:true}) {
-	${2:${VISUAL}}
-} else {
-	${0}
-}
-endsnippet
-# else
-
-snippet el
-else {
-	${0:${VISUAL}}
-}
-endsnippet
-# else if
-snippet elif
-else if (${1:true}) {
-	${0:${VISUAL}}
-}
-endsnippet
-# ifi
-snippet ifi
-if (${1:true}) ${0};
-endsnippet
-
-# switch
-snippet switch
-switch (${1:/* variable */}) {
-	case ${2:/* variable case */}:
-		${3}
-		${4:break;}${5}
-	default:
-		${6}
-}
-endsnippet
-
-# case
-snippet case
-case ${1:/* variable case */}:
-	${2}
-	${3:break;}
-endsnippet
-
-## Functions
-snippet fun "funtion"
-${1:void} ${2:function_name}(${3}) {
-	${4}
-}
-endsnippet
-
-snippet todo "TODO list"
-/*! TODO: ${1:Todo description here}
- *  \todo $1
- */
-endsnippet
+# vim:ft=snippets:
