@@ -30,6 +30,14 @@ endglobal
 # ==============
 priority -50
 
+snippet inc
+#include "${1:stdio.h}"
+endsnippet
+
+snippet incc "Description" b
+#include <${1:stdio.h}>
+endsnippet
+
 snippet def "#define ..."
 #define $1
 endsnippet
@@ -56,8 +64,7 @@ $0
 endsnippet
 
 snippet main "main() (main)"
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	${VISUAL}$0
 	return 0;
 }
