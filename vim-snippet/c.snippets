@@ -56,8 +56,8 @@ endsnippet
 
 snippet mark "#pragma mark (mark)"
 #if 0
-${1:#pragma mark -
-}#pragma mark $2
+${1:#pragma mark - }
+#pragma mark $2
 #endif
 
 $0
@@ -90,6 +90,95 @@ if len(t[1]) > 0:
 	
 	$0
 } /* for ($1; $2; `!p if len(t[1]) > 0: snip.rv = t[1].split('=')[0].split()[-1]`++) */
+endsnippet
+
+##
+## Control Statements
+# if
+snippet if
+	if (${1:true}) {
+		${0:${VISUAL}}
+	}
+endsnippet
+
+snippet ife
+	if (${1:true}) {
+		${2:${VISUAL}}
+	} else {
+		${0}
+	}
+# else
+snippet el
+	else {
+		${0:${VISUAL}}
+	}
+# else if
+snippet elif
+	else if (${1:true}) {
+		${0:${VISUAL}}
+	}
+# ifi
+endsnippet
+
+snippet ifi
+	if (${1:true}) ${0};
+# ternary
+endsnippet
+
+snippet t
+	${1:/* condition */} ? ${2:a} : ${3:b}
+endsnippet
+
+# switch
+snippet switch
+	switch (${1:/* variable */}) {
+		case ${2:/* variable case */}:
+			${3}
+			${4:break;}${5}
+		default:
+			${6}
+	}
+endsnippet
+
+# switch without default
+snippet switchndef
+	switch (${1:/* variable */}) {
+		case ${2:/* variable case */}:
+			${3}
+			${4:break;}${5}
+	}
+# case
+snippet case
+	case ${1:/* variable case */}:
+		${2}
+		${3:break;}
+endsnippet
+
+snippet ret
+	return ${0};
+endsnippet
+
+
+# function definition with  Doxygen documentation
+snippet dfun
+/*! \brief ${1:Brief function description here}
+ *
+ *  ${2:Detailed description of the function}
+ *
+ * \param $3 ${4:Parameter description}
+ * \return ${5:Return parameter description}
+ */
+${6:void} ${7:function_name}(${8:Type} ${3:Parameter}) {
+	${9}
+}
+endsnippet
+
+##
+# TODO section
+snippet todo
+/*! TODO: ${1:Todo description here}
+ *  \todo $1
+ */
 endsnippet
 
 snippet once "Include header once only guard"
