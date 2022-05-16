@@ -96,77 +96,79 @@ endsnippet
 ## Control Statements
 # if
 snippet if
-	if (${1:true}) {
-		${0:${VISUAL}}
-	}
+if (${1:true}) {
+	${0:${VISUAL}}
+}
 endsnippet
 
 snippet ife
-	if (${1:true}) {
-		${2:${VISUAL}}
-	} else {
-		${0}
-	}
+if (${1:true}) {
+	${2:${VISUAL}}
+} else {
+	${0}
+}
 # else
+endsnippet
+
 snippet el
-	else {
-		${0:${VISUAL}}
-	}
+else {
+	${0:${VISUAL}}
+}
 # else if
 snippet elif
-	else if (${1:true}) {
-		${0:${VISUAL}}
-	}
+else if (${1:true}) {
+	${0:${VISUAL}}
+}
 # ifi
 endsnippet
 
 snippet ifi
-	if (${1:true}) ${0};
+if (${1:true}) ${0};
 # ternary
 endsnippet
 
 snippet t
-	${1:/* condition */} ? ${2:a} : ${3:b}
+${1:/* condition */} ? ${2:a} : ${3:b}
 endsnippet
 
 # switch
 snippet switch
-	switch (${1:/* variable */}) {
-		case ${2:/* variable case */}:
-			${3}
-			${4:break;}${5}
-		default:
-			${6}
-	}
+switch (${1:/* variable */}) {
+	case ${2:/* variable case */}:
+		${3}
+		${4:break;}${5}
+	default:
+		${6}
+}
 endsnippet
 
 # switch without default
 snippet switchndef
-	switch (${1:/* variable */}) {
-		case ${2:/* variable case */}:
-			${3}
-			${4:break;}${5}
-	}
+switch (${1:/* variable */}) {
+	case ${2:/* variable case */}:
+		${3}
+		${4:break;}${5}
+}
+endsnippet
+
 # case
 snippet case
-	case ${1:/* variable case */}:
-		${2}
-		${3:break;}
+${3:break;}
 endsnippet
 
 snippet ret
-	return ${0};
+return ${0};
 endsnippet
 
 
 # function definition with  Doxygen documentation
 snippet dfun
-/*! \brief ${1:Brief function description here}
+/*! @brief ${1:Brief function description here}
  *
  *  ${2:Detailed description of the function}
  *
- * \param $3 ${4:Parameter description}
- * \return ${5:Return parameter description}
+ *  @param $3 ${4:Parameter description}
+ *  @return ${5:Return parameter description}
  */
 ${6:void} ${7:function_name}(${8:Type} ${3:Parameter}) {
 	${9}
@@ -246,13 +248,14 @@ def get_args(arglist):
 endglobal
 
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
-snippet head "File Header" b
+snippet fhead "File Header" b
 /******************************************************************************
-* File:             `!p snip.rv = fn`
+*  @file:             `!p snip.rv = fn`
 *
-* Author:           ${2}  
-* Created:          `date +%m/%d/%y` 
-* Description:      ${4:${VISUAL}}
+*  @author:           ${2:skyrwang(skyrwang@tencent.com)}  
+*  @created:          `date +%m/%d/%Y` 
+*  @description:      ${4:${VISUAL}}
+*  @Copyright `date +%Y` Tencent Inc. All rights reserved.
 *****************************************************************************/
 ${0}
 endsnippet
@@ -260,9 +263,9 @@ endsnippet
 post_jump "if snip.tabstop == 0 : split_line(snip.tabstops[4].current_text)"
 snippet func "Function Header" 
 /******************************************************************************
-* Function:         $1
-* Description:      ${4:${VISUAL}}
-* Where:`!p 
+*  Function:         $1
+*  Description:      ${4:${VISUAL}}
+*  Where:`!p 
 snip.rv = ""
 snip >> 2
 
@@ -272,8 +275,8 @@ if args:
 		snip.rv += '\n' + '*' + ' '*19 + arg + ' - TODO'
 snip << 2
 `
-* Return:           $5
-* Error:            $6
+*  Return:           $5
+*  Error:            $6
 *****************************************************************************/
 ${1}($2){
 	${0}
