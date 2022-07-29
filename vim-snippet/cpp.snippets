@@ -35,6 +35,16 @@ int main() {
 	${0}
 }
 endsnippet
+
+snippet tmp
+#include <iostream>
+
+int main() {
+	${0}
+	return 0;
+}
+endsnippet
+
 ##
 ## STL Collections
 
@@ -219,7 +229,7 @@ try {
 }
 endsnippet
 # auto function
-snippet af auto function
+snippet af "auto function"
 auto ${1:name}(${2}) -> ${3:void}
 {
 	${0}
@@ -240,6 +250,17 @@ public:
 
 private:
 	${5: type instance}; /*!< ${6:Member description} */
+};
+endsnippet
+
+snippet cln "class default, no description" b
+class ${1:ClassName} {
+public:
+	${1/(\w+).*/$1/} () = default;
+	virtual ~${1/(\w+).*/$1/} () = default;
+
+private:
+	${2: type instance}; 
 };
 endsnippet
 
@@ -346,3 +367,19 @@ BOOST_AUTO_TEST_SUITE_END()
 
 endsnippet
 # vim:ft=snippets:
+
+snippet lgm "Description" b
+std::lock_guard<std::mutex> ${2:lock}(${1:mutex_});${0}
+endsnippet
+
+snippet lg "Description" b
+std::lock_guard<${3:std::mutex}> ${2:lock}(${1:mutex_});${0}
+endsnippet
+
+snippet lbd "lambda" 
+[${2}](${1}) {${0}}
+endsnippet
+o
+snippet lbdm "lambda" 
+[${2}](${1}) mutable {${0}}
+endsnippet
