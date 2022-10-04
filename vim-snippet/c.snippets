@@ -175,14 +175,6 @@ ${6:void} ${7:function_name}(${8:Type} ${3:Parameter}) {
 }
 endsnippet
 
-##
-# TODO section
-snippet todo
-/*! TODO: ${1:Todo description here}
- *  \todo $1
- */
-endsnippet
-
 snippet once "Include header once only guard"
 #ifndef ${1:`!p
 if not snip.c:
@@ -281,4 +273,20 @@ ${1}($2){
 	${0}
 }
 endsnippet
+
+snippet copyright "Description" b
+// Copyright 2022 Tencent Inc. All rights reserved.
+//
+// Author: skyrwang@tencent.com 
+
+endsnippet
+
+snippet todo "todo" b
+// TODO(${1:skyrwang}): ${0}
+endsnippet
+
+snippet fixme "fixme" b
+// FIXME(${1:skyrwang}): ${0}
+endsnippet
+
 # vim:ft=snippets:
