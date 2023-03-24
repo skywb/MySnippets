@@ -138,16 +138,10 @@ std::cout << ${1:"hello world"} << std::endl;
 endsnippet
 
 snippet ns "namespace .. (namespace)"
-namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`}
+namespace${1/.+/ /m}${1: name}
 {
 	${VISUAL}$0
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
-endsnippet
-
-snippet forc "general for loop (for)"
-for (${6:auto} ${1:i} = ${2:v.begin()}; `!p import re; snip.rv = re.split("[^\w]",t[1])[-1]` ${4:!=} ${3:`!p m = re.search(r'^(?:(.*)(\.|->)begin\(\)|((?:std|boost)::)?begin\((.*)\))$', t[2]); snip.rv = (((m.group(3) if m.group(3) else "") + "end(" + m.group(4) + ")") if m.group(4) else (m.group(1) + m.group(2) + "end()")) if m else ""`}; ${5:++`!p snip.rv = t[1].split(" ")[-1]`}) {
-	${VISUAL}$0
-}
 endsnippet
 
 snippet beginend "$1.begin(), $1.end() (beginend)"
@@ -243,24 +237,24 @@ snippet cl "class .. (class)"
  *
  *  ${4:Detailed description}
  */
-class ${1:`!p snip.rv = snip.basename or "name"`} {
-public:
-	${1/(\w+).*/$1/} (${2:arguments});
-	virtual ~${1/(\w+).*/$1/} ();
-
-private:
-	${5: type instance}; /*!< ${6:Member description} */
+class ${1:ClassName} {
+ public:
+ 	 ${1/(\w+).*/$1/} (${2:arguments});
+ 	 virtual ~${1/(\w+).*/$1/} ();
+ 
+ private:
+ 	 ${5: type instance}; /*!< ${6:Member description} */
 };
 endsnippet
 
 snippet cln "class default, no description" b
 class ${1:ClassName} {
-public:
-	${1/(\w+).*/$1/} () = default;
-	virtual ~${1/(\w+).*/$1/} () = default;
-
-private:
-	${2: type instance}; 
+ public:
+ 	 ${1/(\w+).*/$1/} () = default;
+ 	 virtual ~${1/(\w+).*/$1/} () = default;
+ 
+ private:
+ 	${2: type instance}; 
 };
 endsnippet
 
