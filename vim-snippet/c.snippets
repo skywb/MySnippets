@@ -39,7 +39,7 @@ snippet incc "Description" b
 endsnippet
 
 snippet def "#define ..."
-#define $1
+#define $1_`!p if not snip.c: import uuid; snip.rv = str(uuid.uuid4()).split('-')[0]`
 endsnippet
 
 snippet #ifndef "#ifndef ... #define ... #endif"

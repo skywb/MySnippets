@@ -1,6 +1,25 @@
+
+##############
+# NICE BOXES #
+##############
+#global !p
+#from vimsnippets import foldmarker, make_box, get_comment_format
+#LOREM = """
+#Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod \
+#tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At \
+#vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, \
+#no sea takimata sanctus est Lorem ipsum dolor sit amet.
+#"""
+#endglobal
+
 snippet copyright "Description" b
-${1://} Copyright 2022 Tencent Inc. All rights reserved.
+${1://} Copyright `date +%Y` Tencent Inc. All rights reserved.
 $1
 $1 Author: skyrwang@tencent.com
 
 endsnippet
+
+snippet uuid "Random UUID" w
+`!p if not snip.c: import uuid; snip.rv = str(uuid.uuid4())`
+endsnippet
+
