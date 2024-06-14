@@ -31,16 +31,17 @@ endglobal
 #                            TextMate Snippets                            #
 ###########################################################################
 snippet main
-int main() {
-	${0}
+int main(int argc, char *argv[]) {
+	${VISUAL}$0
+	return 0;
 }
 endsnippet
 
 snippet tmp
 #include <iostream>
 
-int main() {
-	${0}
+int main(int argc, char *argv[]) {
+	${VISUAL}$0
 	return 0;
 }
 endsnippet
